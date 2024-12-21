@@ -1,0 +1,222 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    padding: 0;
+    background-color: black;
+}
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    text-align: left;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: #00CCCC
+}
+p {
+    color: black
+}
+form {
+    display: flex;
+    gap: 10px;
+    border-radius: 90px;
+}
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    color:　black
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    
+}
+#results {
+    margin-top: 20px;
+    color: white
+}
+h2 {
+    text-align: center;
+}
+.slider-title {
+    text-align: left;
+    color: white
+
+}
+.swiper-container {
+    width: 90%; /* 横幅を90%に設定して中央寄せ */
+    max-width: 1200px; /* 最大幅を制限 */
+    height: 300px; /* 高さを明確に指定 */
+    margin: 0 auto; /* 中央寄せ */
+    position: relative; /* ナビゲーションボタンの配置用 */
+}
+.swiper-title {
+    position: absolute;
+    top: -30px; /* スライダーの上に配置 */
+    left: 10px; /* 左端からの余白 */
+    font-size: 24px; /* フォントサイズ */
+    font-weight: bold; /* 強調 */
+    color: white; /* テキストカラー */
+    background-color: rgba(0, 0, 0, 0.7); /* 半透明の背景 */
+    padding: 5px 10px; /* タイトルの余白 */
+    border-radius: 5px; /* 角を丸める */
+    z-index: 15; /* 他の要素の上に表示 */
+}
+
+.swiper-slide {
+    text-align: center;
+    display: flex; /* コンテンツを縦横中央に揃える */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    width: 100%;
+    max-height: 200px; /* 高さを調整 */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.swiper-slide h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: white;
+}
+
+.swiper-slide a {
+    text-decoration: none;
+    color: #007BFF;
+}
+.swiper-slide h3 {
+    font-size: 18px; /* タイトルの文字サイズ */
+    color: white; /* タイトルの文字色 */
+    margin: 0; /* 余白をリセット */
+    text-align: center; /* 中央揃え */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: white; /* ボタン色を設定 */
+    width: 40px;
+    height: 40px;
+    top: 50%; /* スライド中央に配置 */
+    transform: translateY(-50%); /* 完全な中央配置 */
+    z-index: 10; /* 他要素の上に表示 */
+}
+
+.swiper-button-next {
+    right: 10px; /* 右側に余白を追加 */
+}
+
+.swiper-button-prev {
+    left: 10px; /* 左側に余白を追加 */
+}
+
+.swiper-pagination {
+    bottom: 10px; /* ページネーションをスライドの下部に配置 */
+  
+
+}
+/* <ul>のデフォルトのリストマーカーを消す */
+ul {
+    list-style-type: none; /* リストの丸を消す */
+    padding-left: 0;       /* リストの左側の余白を消す */
+}
+
+/* <li>内の内容が横並びになるスタイル */
+li {
+    margin: 0; /* リストアイテム間の余白をなくす */
+}
+
+.recommendation-title ul {
+    text-align: left;
+    font-size: 5px;
+
+}
+.program-link {
+    text-decoration: none;  /* リンクの下線をなくす */
+    color: inherit;         /* 色を継承 */
+}
+
+/* 各プログラムのアイテム */
+.program-item {
+    display: flex;          /* 横並びにする */
+    align-items: center;    /* 垂直方向に中央揃え */
+    gap: 10px;              /* 画像とタイトルの間隔 */
+    padding: 10px;          /* パディング */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 5px;     /* 角を丸くする */
+    transition: background-color 0.3s; /* 背景色の遷移 */
+}
+
+/* ホバー時の背景色を変更 */
+.program-item:hover {
+    background-color: rgb(40, 39, 39);
+}
+
+/* 画像のスタイル */
+.program-image {
+    width: 50px;        /* 画像の横幅 */
+    height: 50px;       /* 画像の高さ */
+    object-fit: cover;  /* 画像の切り取り方法 */
+    border-radius: 50%; /* 画像を円形に */
+}
+
+/* タイトルのスタイル */
+.program-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.program2-link {
+    text-decoration: none;  /* リンクの下線をなくす */
+    color: inherit;         /* 色を継承 */
+}
+
+/* 各プログラムのアイテム */
+.program2-item {
+    display: flex;          /* 横並びにする */
+    align-items: center;    /* 垂直方向に中央揃え */
+    gap: 10px;              /* 画像とタイトルの間隔 */
+    padding: 10px;          /* パディング */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 5px;     /* 角を丸くする */
+    transition: background-color 0.3s; /* 背景色の遷移 */
+}
+
+/* ホバー時の背景色を変更 */
+.program2-item:hover {
+    background-color: rgb(40, 39, 39);
+}
+
+/* 画像のスタイル */
+.program2-image {
+    width: 50px;        /* 画像の横幅 */
+    height: 50px;       /* 画像の高さ */
+    object-fit: cover;  /* 画像の切り取り方法 */
+    /* border-radius: 50%; 画像を円形に */
+}
+
+/* タイトルのスタイル */
+.program2-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.aaa　 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    height: 50px;
+    background-color: #000;
+    font-size: 20px;
+    color: #fff;
+    position: fixed
+
+  }

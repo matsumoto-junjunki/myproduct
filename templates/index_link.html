@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadioEnter</title>
+    <!-- Swiper.js のCSS -->   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <!-- カスタムCSS -->   
+    <link rel="stylesheet" href="/static/CSS/stylechat.css">
+</head>
+<body>
+    <h1>radioenter</h1> 
+    <div class="container">
+        <form id="search-form">
+            <input type="text" id="query" name="query" placeholder="キーワードを入力してください（出演者・ジャンル・シーン）">
+            <button type="submit">検索</button>
+        </form>
+        <div id="results"></div>
+    </div>
+    <!--＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+        <!-- Swiperコンテナ -->
+    <div class="slider-container">
+        <h2 class="slider-title">人気番組</h2> <!-- タイトルを追加 -->
+        <!-- オールナイトニッポン -->
+        <div class="swiper-container">
+            <h2 class="swiper-title">オールナイトニッポン</h2> <!-- タイトル追加 -->
+            <div class="swiper-wrapper">
+                {% for ann_program in ann_programs %}
+                <div class="swiper-slide">
+                    <a href="{{ ann_program.link }}" target="_blank">
+                        <img src="{{ ann_program.image }}" alt="{{ ann_program.title }}">
+                    </a>
+                    <h3>{{ ann_program.title }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+
+        <!-- ナビゲーションボタン -->
+         　 <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        <!-- ページネーション -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- JUNK -->
+        <div class="swiper-container">
+            <h2 class="swiper-title">JUNK</h2> <!-- タイトル追加 -->
+            <div class="swiper-wrapper">
+                {% for JUNK_program in JUNK_programs %}
+                <div class="swiper-slide">
+                    <a href="{{ JUNK_program.link }}" target="_blank">
+                        <img src="{{ JUNK_program.image }}" alt="{{ JUNK_program.title }}">
+                    </a>
+                    <h3>{{ JUNK_program.title }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+
+        <!-- ナビゲーションボタン -->
+         　 <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        <!-- ページネーション -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+<!--＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->    
+<!-- javascriptのjsのライブラリの追加 -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.getElementById("search-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const query = document.getElementById("query").value;
+            // フロントエンドで検索クエリをバックエンドに送信
+            const response = await fetch("/search", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query })
+            });
+
+            const data = await response.json();
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = ""; // 以前の結果をクリア
+
+            // 部分一致検索結果
+            if (data.key_matches.length > 0) {
+                resultsDiv.innerHTML += `
+                <ul class="recommendation-title">キーワードが一致しました</ul   >
+                <ul>
+                    ${data.key_matches.map(program => `
+                    <li>
+                        <a href="${program.link}" target="_blank" class="program-link">
+                            <div class="program-item">
+                                <img src="${program.image}" alt="${program.title}" class="program-image">
+                                <span class="program-title">${program.title}</span>
+                            </div>
+                        </a>
+                    </li>`).join("")}
+                </ul>`;
+            } else {
+                resultsDiv.innerHTML += "<p>一致する番組はありませんでした (キーワード検索).</p>";
+            }
+
+            // ベクトル検索結果
+            if (data.recommendations.length > 0) {
+                resultsDiv.innerHTML += `
+                <ul class="recommendation-title">こちらがオススメ</ul>
+                <ul>
+                    ${data.recommendations.map(program2 => `
+                    <li>
+                        <a href="${program2.link}" target="_blank" class="program2-link">
+                            <div class="program2-item">
+                                <img src="${program2.image}" alt="${program2.title}" class="program2-image">
+                                <span class="program2-title">${program2.title}</span>
+                            </div>
+                        </a>
+                    </li>`).join("")}
+                </ul>`;  
+            } else {
+                resultsDiv.innerHTML += "<p>一致する番組はありませんでした (ベクトル検索).</p>";
+            }
+        });
+
+
+
+// annのスライド部分
+        document.addEventListener("DOMContentLoaded", function () {
+            const swiper = new Swiper(".swiper-container", {
+                slidesPerView: 3, // 一度に表示するスライド数
+                spaceBetween: 20, // スライド間の間隔
+                loop: true,       // ループモード
+                autoplay: {
+                    delay: 3500,  // 自動スライドの間隔（ミリ秒）
+                    disableOnInteraction: false, // ユーザーが操作しても自動スライドを維持
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+        });
+    </script>
+    <ul class="aaa" >
+        © 2024 松本惇生
+    </ul>
+</body>
+<!-- <footer>
+    © 2024 松本惇生
+ </footer> -->
+</html>
